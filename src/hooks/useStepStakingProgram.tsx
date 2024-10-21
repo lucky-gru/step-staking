@@ -3,10 +3,9 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { PublicKey } from "@solana/web3.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useConnection } from "@solana/wallet-adapter-react";
 import {
   getAccount,
-  getAssociatedTokenAddress,
+  getAssociatedTokenAddressSync,
   getMint,
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
@@ -21,6 +20,7 @@ import { UserRejectTransactionAlert } from "@/components/stake/notifications/Use
 import { StakeResultAlert } from "@/components/stake/notifications/StakeResultAlert";
 import { StakeErrorAlert } from "@/components/stake/notifications/StakeErrorAlert";
 import { useTokenBalance } from "./useTokenBalance";
+import { initTokenAccountTx } from "@/utils/initTokenAccountTx";
 
 export const TOKEN_BALANCE_KEY = "get-token-balance";
 export const STEP_TO_XSTEP_CHANGE_RATE_KEY = "step-to-xstep-change-rate";
@@ -51,7 +51,7 @@ export function useStepStakingProgram() {
   );
   const queryClick = useQueryClient();
 
-  const { connection } = useConnection();
+  // const { connection } = useConnection();
   const provider = useAnchorProvider();
   const program = useMemo(() => getStepStakingProgram(provider), [provider]);
 
@@ -61,14 +61,14 @@ export function useStepStakingProgram() {
       try {
         // Fetch the token account data
         const tokenAccountInfo = await getAccount(
-          connection,
+          provider.connection,
           tokenVaultAddress,
           "confirmed",
         );
 
         // Fetch the token account data
         const xMintAccountInfo = await getMint(
-          connection,
+          provider.connection,
           xStepTokenMintAddress,
         );
 
@@ -164,7 +164,6 @@ export function useStepStakingProgram() {
 
   const errorHandler = useCallback(
     (errorName: string, errorMessage: string, kind: "stake" | "unstake") => {
-
       if (
         errorName === "WalletSignTransactionError" &&
         errorMessage === "User rejected the request."
@@ -196,12 +195,13 @@ export function useStepStakingProgram() {
       amount: number;
       walletAddress: PublicKey;
     }) => {
-      const tokenFrom = await getAssociatedTokenAddress(
+      const tokenFrom = getAssociatedTokenAddressSync(
         stepTokenMintAddress,
         walletAddress,
       );
 
-      const xTokenTo = await getAssociatedTokenAddress(
+      const { transaction, tokenAccount: xTokenTo } = await initTokenAccountTx(
+        provider.connection,
         xStepTokenMintAddress,
         walletAddress,
       );
@@ -211,18 +211,22 @@ export function useStepStakingProgram() {
           autoHideDuration: 5000,
         });
 
-        const tx = await program.methods
-          .stake(tokenVaultNonce, new BN(Math.floor(amount * 1e9)))
-          .accounts({
-            tokenMint: stepTokenMintAddress,
-            tokenVault: tokenVaultAddress,
-            tokenProgram: TOKEN_PROGRAM_ID,
-            xTokenMint: xStepTokenMintAddress,
-            tokenFrom: tokenFrom,
-            xTokenTo: xTokenTo,
-            tokenFromAuthority: walletAddress,
-          })
-          .rpc();
+        transaction.add(
+          await program.methods
+            .stake(tokenVaultNonce, new BN(Math.floor(amount * 1e9)))
+            .accounts({
+              tokenMint: stepTokenMintAddress,
+              tokenVault: tokenVaultAddress,
+              tokenProgram: TOKEN_PROGRAM_ID,
+              xTokenMint: xStepTokenMintAddress,
+              tokenFrom: tokenFrom,
+              xTokenTo: xTokenTo,
+              tokenFromAuthority: walletAddress,
+            })
+            .transaction(),
+        );
+
+        const tx = await provider.sendAndConfirm(transaction);
 
         await successHandler(amount, tx, "stake");
 
@@ -248,12 +252,13 @@ export function useStepStakingProgram() {
       amount: number;
       walletAddress: PublicKey;
     }) => {
-      const xTokenFrom = await getAssociatedTokenAddress(
+      const xTokenFrom = getAssociatedTokenAddressSync(
         xStepTokenMintAddress,
         walletAddress,
       );
 
-      const tokenTo = await getAssociatedTokenAddress(
+      const { transaction, tokenAccount: tokenTo } = await initTokenAccountTx(
+        provider.connection,
         stepTokenMintAddress,
         walletAddress,
       );
@@ -263,18 +268,22 @@ export function useStepStakingProgram() {
           autoHideDuration: 5000,
         });
 
-        const tx = await program.methods
-          .unstake(tokenVaultNonce, new BN(Math.floor(amount * 1e9)))
-          .accounts({
-            tokenMint: stepTokenMintAddress,
-            xTokenMint: xStepTokenMintAddress,
-            xTokenFrom: xTokenFrom,
-            tokenTo: tokenTo,
-            tokenVault: tokenVaultAddress,
-            tokenProgram: TOKEN_PROGRAM_ID,
-            xTokenFromAuthority: walletAddress,
-          })
-          .rpc();
+        transaction.add(
+          await program.methods
+            .unstake(tokenVaultNonce, new BN(Math.floor(amount * 1e9)))
+            .accounts({
+              tokenMint: stepTokenMintAddress,
+              xTokenMint: xStepTokenMintAddress,
+              xTokenFrom: xTokenFrom,
+              tokenTo: tokenTo,
+              tokenVault: tokenVaultAddress,
+              tokenProgram: TOKEN_PROGRAM_ID,
+              xTokenFromAuthority: walletAddress,
+            })
+            .transaction(),
+        );
+
+        const tx = await provider.sendAndConfirm(transaction);
 
         await successHandler(amount, tx, "unstake");
 

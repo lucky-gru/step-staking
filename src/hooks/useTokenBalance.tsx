@@ -3,14 +3,17 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getAccount, getAssociatedTokenAddress } from "@solana/spl-token";
+import { getAccount, getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { useCallback } from "react";
+import { useSnackbar } from "notistack";
+import { StakeErrorAlert } from "@/components/stake/notifications/StakeErrorAlert";
 
 export const TOKEN_BALANCE_KEY = "get-token-balance";
 
 export function useTokenBalance(mintAddress: PublicKey) {
   const wallet = useWallet();
   const { connection } = useConnection();
+  const { enqueueSnackbar } = useSnackbar();
 
   const queryClient = useQueryClient();
 
@@ -25,7 +28,7 @@ export function useTokenBalance(mintAddress: PublicKey) {
 
       try {
         // Get the associated token account address
-        const tokenAccountAddress = await getAssociatedTokenAddress(
+        const tokenAccountAddress = getAssociatedTokenAddressSync(
           mintAddress,
           walletAddress,
         );
