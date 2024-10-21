@@ -42,7 +42,7 @@ export function useTokenBalance(mintAddress: PublicKey) {
 
         return Number(tokenAccountInfo.amount) / 1e9;
       } catch (error) {
-        console.error("Error fetching token balance:", error);
+        // console.error("Error fetching token balance:", error);
         return 0;
       }
     },
