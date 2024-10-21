@@ -44,7 +44,7 @@ This project uses the following environment variables:
 - [solana/web3.js](https://solana-labs.github.io/solana-web3.js/ "solana/web3.js")
 - [tanstack](https://tanstack.com/query/latest "tanstack")
 - [antd](https://ant.design/ "antd")
-- [tailwindcss.com](https://tailwindcss.com/ "tailwindcss.com")
+- [tailwindcss](https://tailwindcss.com/ "tailwindcss.com")
 
 ## Features
 
