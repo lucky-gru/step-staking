@@ -4,6 +4,10 @@ Step Finance staking page implementation with Next.js
 
 This forking version is available here: [fork_step](https://step-staking-luckygrus-projects.vercel.app "fork_step")
 
+## Preview
+
+![image](https://github.com/user-attachments/assets/997c3e83-ba32-4082-8a3b-0cfe724e465e)
+
 ## Requirements
 
 You will only need Node.js v18 or above, a node global package, Yarn, installed in your environement.
