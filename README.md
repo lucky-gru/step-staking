@@ -29,6 +29,7 @@ This project uses the following environment variables:
 |NEXT_PUBLIC_STEP_TOKEN_MINT_ADDRESS  | STEP token mint address | StepAscQoEioFxxWGnh2sLBDFp9d8rvKz2Yp39iDpyT      |
 |NEXT_PUBLIC_X_STEP_TOKEN_MINT_ADDRESS  | xSTEP token mint address | xStpgUCss9piqeFUk2iLVcvJEGhAdJxJQuwLkXP555G |
 |NEXT_PUBLIC_TOKEN_VAULT_ADDRESS  | vault address | ANYxxG365hutGYaTdtUQG8u2hC4dFX9mFHKuzy9ABQJi |
+|NEXT_PUBLIC_TOKEN_VAULT_NONCE  | nonce to get vault address | 253 |
 |NEXT_PUBLIC_MARKET_TOKEN_PRICE_API  | API to get token price | https://api-v3.raydium.io/mint/price |
 
 ## Tech used
