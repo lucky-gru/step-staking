@@ -1,6 +1,5 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    NEXT_PUBLIC_STEP_STAKING_DEVNET_PROGRAM_ID?: string;
     NEXT_PUBLIC_STEP_STAKING_MAINNET_PROGRAM_ID?: string;
     NEXT_PUBLIC_STEP_TOKEN_MINT_ADDRESS?: string;
     NEXT_PUBLIC_X_STEP_TOKEN_MINT_ADDRESS?: string;
