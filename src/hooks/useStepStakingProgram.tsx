@@ -164,7 +164,6 @@ export function useStepStakingProgram() {
 
   const errorHandler = useCallback(
     (errorName: string, errorMessage: string, kind: "stake" | "unstake") => {
-      console.log(errorName, errorMessage);
 
       if (
         errorName === "WalletSignTransactionError" &&
@@ -233,12 +232,10 @@ export function useStepStakingProgram() {
       }
     },
     onSuccess: async (tx) => {
-      console.log("staked ==>", tx);
+      // handle extra logic
     },
     onError: (err) => {
       errorHandler(err.name, err.message, "stake");
-
-      console.error(err, "Error at staking");
     },
   });
 
@@ -287,12 +284,10 @@ export function useStepStakingProgram() {
       }
     },
     onSuccess: async (tx) => {
-      console.log("unstaking ==>", tx);
+      // handle extra logic
     },
     onError: (err) => {
       errorHandler(err.name, err.message, "unstake");
-
-      console.error(err, "Error at staking");
     },
   });
 
