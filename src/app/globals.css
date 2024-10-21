@@ -1,0 +1,51 @@
+@layer tailwind-base, antd;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+
+.wallet-adapter-button-trigger {
+  background: rgb(100, 26, 230) !important;
+  border-radius: 8px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+.wallet-adapter-dropdown-list,
+.wallet-adapter-button {
+  font-family: inherit !important;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+*,
+*:hover {
+  scrollbar-color: auto;
+}
+
+*::-webkit-scrollbar {
+  background-clip: content-box;
+  background-color: #000;
+  height: 7px;
+  width: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #7d7d7d;
+  border-radius: 5px;
+}
+
+*::selection {
+  background: #003628;
+  color: #fff;
+}
