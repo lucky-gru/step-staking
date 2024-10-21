@@ -1,0 +1,21 @@
+.ant-menu-submenu-title .ant-menu-title-content,
+.ant-menu-submenu-arrow {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-plus-jakarta-sans) !important;
+}
+
+.ant-menu-submenu-title {
+  border-radius: 2px !important;
+  margin: 0 !important;
+  margin-bottom: 4px !important;
+  width: 100% !important;
+}
+.ant-menu-submenu-title:active {
+  background-color: #003628 !important;
+}
+.ant-menu-submenu-title:hover .ant-menu-title-content,
+.ant-menu-submenu-title:hover .ant-menu-submenu-arrow {
+  color: #06d6a0 !important;
+}
