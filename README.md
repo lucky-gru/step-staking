@@ -1,8 +1,8 @@
 # Step Finance Staking DApp
 
-Step Finance staking page implementation with Next.js
+This repo is to demonstrate Next.js, Solana, and Anchor skills by building a similar UI to the Step Finance V2 staking page.
 
-This forking version is available here: [fork_step](https://step-staking-luckygrus-projects.vercel.app "fork_step")
+Working version is available here: [step staking](https://step-staking-luckygrus-projects.vercel.app "step staking")
 
 ## Preview
 
@@ -28,17 +28,18 @@ Reference [Next.js official doc](https://nextjs.org/docs/pages/building-your-app
 
 This project uses the following environment variables:
 
-| Name                          | Description                         | Default Value                                  |
-| ----------------------------- | ------------------------------------| -----------------------------------------------|
-|NEXT_PUBLIC_MAINNET_RPC           | MAINNET RPC SERVER        | https://mainnet.helius-rpc.com      |
-|NEXT_PUBLIC_STEP_STAKING_MAINNET_PROGRAM_ID | STEP staking program address | Stk5NCWomVN3itaFjLu382u9ibb5jMSHEsh6CuhaGjB      |
-|NEXT_PUBLIC_STEP_TOKEN_MINT_ADDRESS  | STEP token mint address | StepAscQoEioFxxWGnh2sLBDFp9d8rvKz2Yp39iDpyT      |
-|NEXT_PUBLIC_X_STEP_TOKEN_MINT_ADDRESS  | xSTEP token mint address | xStpgUCss9piqeFUk2iLVcvJEGhAdJxJQuwLkXP555G |
-|NEXT_PUBLIC_TOKEN_VAULT_ADDRESS  | vault address | ANYxxG365hutGYaTdtUQG8u2hC4dFX9mFHKuzy9ABQJi |
-|NEXT_PUBLIC_TOKEN_VAULT_NONCE  | nonce to get vault address | 253 |
-|NEXT_PUBLIC_MARKET_TOKEN_PRICE_API  | API to get token price | https://api-v3.raydium.io/mint/price |
+| Name                                        | Description                  | Default Value                                |
+| ------------------------------------------- | ---------------------------- | -------------------------------------------- |
+| NEXT_PUBLIC_MAINNET_RPC                     | MAINNET RPC SERVER           | https://mainnet.helius-rpc.com               |
+| NEXT_PUBLIC_STEP_STAKING_MAINNET_PROGRAM_ID | STEP staking program address | Stk5NCWomVN3itaFjLu382u9ibb5jMSHEsh6CuhaGjB  |
+| NEXT_PUBLIC_STEP_TOKEN_MINT_ADDRESS         | STEP token mint address      | StepAscQoEioFxxWGnh2sLBDFp9d8rvKz2Yp39iDpyT  |
+| NEXT_PUBLIC_X_STEP_TOKEN_MINT_ADDRESS       | xSTEP token mint address     | xStpgUCss9piqeFUk2iLVcvJEGhAdJxJQuwLkXP555G  |
+| NEXT_PUBLIC_TOKEN_VAULT_ADDRESS             | vault address                | ANYxxG365hutGYaTdtUQG8u2hC4dFX9mFHKuzy9ABQJi |
+| NEXT_PUBLIC_TOKEN_VAULT_NONCE               | nonce to get vault address   | 253                                          |
+| NEXT_PUBLIC_MARKET_TOKEN_PRICE_API          | API to get token price       | https://api-v3.raydium.io/mint/price         |
 
 ## Tech used
+
 - [Next.js 14](https://nextjs.org/docs "Next.js 14")
 - [@coral-xyz/anchor](https://github.com/coral-xyz/anchor "@coral-xyz/anchor")
 - [solana/web3.js](https://solana-labs.github.io/solana-web3.js/ "solana/web3.js")
