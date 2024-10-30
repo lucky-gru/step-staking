@@ -6,14 +6,12 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAccount, getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { useCallback } from "react";
 import { useSnackbar } from "notistack";
-import { StakeErrorAlert } from "@/components/stake/notifications/StakeErrorAlert";
 
 export const TOKEN_BALANCE_KEY = "get-token-balance";
 
 export function useTokenBalance(mintAddress: PublicKey) {
   const wallet = useWallet();
   const { connection } = useConnection();
-  const { enqueueSnackbar } = useSnackbar();
 
   const queryClient = useQueryClient();
 

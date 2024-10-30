@@ -34,7 +34,8 @@ export const xStepTokenMintAddress = new PublicKey(
     "xStpgUCss9piqeFUk2iLVcvJEGhAdJxJQuwLkXP555G",
 );
 export const tokenVaultAddress = new PublicKey(
-  process.env.NEXT_PUBLIC_TOKEN_VAULT_ADDRESS || "",
+  process.env.NEXT_PUBLIC_TOKEN_VAULT_ADDRESS ||
+    "ANYxxG365hutGYaTdtUQG8u2hC4dFX9mFHKuzy9ABQJi",
 );
 export const tokenVaultNonce =
   process.env.NEXT_PUBLIC_TOKEN_VAULT_NONCE &&
@@ -49,7 +50,7 @@ export function useStepStakingProgram() {
   const { invalidate: invalidateXStepBalance } = useTokenBalance(
     xStepTokenMintAddress,
   );
-  const queryClick = useQueryClient();
+  const queryClient = useQueryClient();
 
   // const { connection } = useConnection();
   const provider = useAnchorProvider();
@@ -92,14 +93,14 @@ export function useStepStakingProgram() {
       const stepPerXStep = +event?.stepPerXStep;
 
       if (!Number.isNaN(stepPerXStep)) {
-        queryClick.setQueryData([STEP_TO_XSTEP_CHANGE_RATE_KEY], stepPerXStep);
+        queryClient.setQueryData([STEP_TO_XSTEP_CHANGE_RATE_KEY], stepPerXStep);
       }
     });
 
     return () => {
       program.removeEventListener(listener);
     };
-  }, [program, queryClick]);
+  }, [program, queryClient]);
 
   const successHandler = useCallback(
     async (amount: number, tx: string, kind: "stake" | "unstake") => {
@@ -118,7 +119,7 @@ export function useStepStakingProgram() {
       closeSnackbar(snackId);
 
       if (!confirmation.value.err) {
-        const stepPerXStep = queryClick.getQueryData<number>([
+        const stepPerXStep = queryClient.getQueryData<number>([
           STEP_TO_XSTEP_CHANGE_RATE_KEY,
         ]);
 
@@ -158,7 +159,7 @@ export function useStepStakingProgram() {
       invalidateStepBalance,
       invalidateXStepBalance,
       provider.connection,
-      queryClick,
+      queryClient,
     ],
   );
 
