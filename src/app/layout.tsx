@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 
 export const metadata = {
   title: "Step",
-  description: "Step stake dapp",
+  description: "Step Finance is the front page of Solana. Visualize, Analyze, Aggregate and Execute transactions across Solana in one easy to use Dashboard",
 };
 
 export default function RootLayout({
